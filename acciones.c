@@ -58,9 +58,9 @@ void leer(lector *le)
     
     nodo *segmento= obtener(nom);
 
-    int i, max;
+    int i; 
     char tira[segmento->longitud];
-    for (i = 0; i < max; i++)
+    for (i = 0; i < segmento->longitud; i++)
         tira[i] = arreglo[segmento->inicio + i];
 
    enviar_mensaje(tira);
