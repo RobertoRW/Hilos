@@ -10,11 +10,10 @@ char arreglo[100];
 void enviar_mensaje(char*);
 
 void crear(creador *creador);
-escritor *nuevo_escritor(char *id, char *nombre, int espera, char *tira);
-lector *nuevo_lector(char *id, char *nombre, int espera);
-/*compresor *nuevo_compresor(int variante);
-destructor *nuevo_destructor(char *id, char *nombre, int espera);
-void adelantar(int adelantar);*/
+void escribir(escritor *es);
+void leer(lector *le);
+void destruir(destructor *de);
+/*compresor *nuevo_compresor(int variante); */
 
 
 void get_line(char *linea, int maximo);
@@ -55,7 +54,7 @@ void escribir(escritor *es)
 
 void leer(lector *le)
 {
-    char *nom = es->nombre;
+    char *nom = le->nombre;
     
     nodo *segmento= obtener(nom);
 
@@ -64,12 +63,12 @@ void leer(lector *le)
     for (i = 0; i < max; i++)
         tira[i] = arreglo[segmento->inicio + i];
 
-   enviar_mensage(tira);
+   enviar_mensaje(tira);
 }
 
 void destruir(destructor *de)
 {
-    char *nom = es->nombre;
+    char *nom = de->nombre;
     
     eliminar(nom);
 }
@@ -92,7 +91,7 @@ void get_line(char s[], int lim)
     return;
 }
 
-enviar_mensaje(char *str) {
+void enviar_mensaje(char *str) {
     printf("%s\n", str);
 }
 
