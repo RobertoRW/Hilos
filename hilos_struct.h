@@ -1,6 +1,6 @@
 struct creador_struct{
-    char[2] id;
-    char nombre;
+    char *id;
+    char *nombre;
     int inicio;
     int longitud;
     int espera;
@@ -11,7 +11,7 @@ typedef struct creador_struct creador;
 
 struct escritor_struct{
     int id;
-    char nombre;
+    char *nombre;
     int espera;
     char* tira;
 };
@@ -19,16 +19,16 @@ struct escritor_struct{
 typedef struct escritor_struct escritor;
 
 struct lector_struct{
-    char[2] id;
-    char nombre;
+    char *id;
+    char *nombre;
     int espera;
 };
 
 typedef struct lector_struct lector;
 
 struct destructor_struct{
-    char[2] id;
-    char nombre;
+    char *id;
+    char *nombre;
     int espera;
     char* tira;
 };
