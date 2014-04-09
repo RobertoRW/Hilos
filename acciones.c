@@ -13,8 +13,7 @@ void crear(creador *creador);
 void escribir(escritor *es);
 void leer(lector *le);
 void destruir(destructor *de);
-/*compresor *nuevo_compresor(int variante); */
-
+void comprimir(void);
 
 void get_line(char *linea, int maximo);
 
@@ -55,15 +54,17 @@ void escribir(escritor *es)
 void leer(lector *le)
 {
     char *nom = le->nombre;
-    
-    nodo *segmento= obtener(nom);
+    nodo *segmento = obtener(nom);
 
     int i; 
     char tira[segmento->longitud];
     for (i = 0; i < segmento->longitud; i++)
         tira[i] = arreglo[segmento->inicio + i];
 
-   enviar_mensaje(tira);
+    char *mensaje;
+    sprintf(mensaje, "ID: %s, Tira: \"%s\", Ultimo escritor: %s, Lector: %s\n", 
+                segmento->ID, tira, segmento->ultimo_escritor, nom);
+    enviar_mensaje(mensaje);
 }
 
 void destruir(destructor *de)
@@ -71,6 +72,21 @@ void destruir(destructor *de)
     char *nom = de->nombre;
     
     eliminar(nom);
+}
+
+void comprimir(void)
+{
+    extern nodo *primero;
+    nodo *p;
+    int prev = 0;
+    for (p = primero; p != NULL; p = p->siguiente)
+        if (p->inicio > prev) {
+            int n = p->inicio;
+            p->inicio = prev;
+            while(n < (p->inicio + p->longitud))
+                arreglo[prev++] = arreglo[n++];
+        } else
+            prev += p->longitud;
 }
 
 
