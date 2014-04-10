@@ -196,8 +196,24 @@ void nuevo_creador(char *id, char *nom, int ini, int lon, int esp,
 }
 
 void nuevo_escritor(char *id, char *nom, int esp, char *tira) {
-        printf("Nuevo escritor, id: %s, nombre: %s, espera: %d, tira: %s\n",
-        id, nom, esp, tira);
+    if (obtener(nom) == NULL) {
+        enviar_error("No existe un sector con ese nombre");
+        return;
+    }
+
+    escritor *p, es;
+    p = malloc(sizeof(escritor));
+    es = *p;
+
+    tira[lon-1] = '\0';
+
+    es.id = id;
+    es.nombre = nom;
+    es.espera = esp;
+    es.tira = tira;
+
+    printf("Nuevo escritor, id: %s, nombre: %s, espera: %d, tira: %s\n",
+    es.id, es.nombre, es.espera, es.tira);
     return;
 }
 
