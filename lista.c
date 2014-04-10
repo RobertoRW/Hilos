@@ -6,10 +6,10 @@
 /  Mantiene la lista enlazada */
 void recorrer(void);
 
-static nodo *primero = NULL; /* primer nodo de la lista */ 
+nodo *primero = NULL; /* primer nodo de la lista */ 
 
 /* la funcion main es solo para las pruebas */
-void main() {
+/* void main() {
     agregar("A", 3, 2);
     agregar("E", 1, 2);
     agregar("3", 0, 2);
@@ -31,7 +31,7 @@ void main() {
     if (lol != NULL)
         printf("Nodo %s inicia en %d\n", lol->ID, lol->inicio);
 
-}
+}*/
 /* agrega un nodo con el nombre, inicio y longitud dados */
 void agregar(char *nombre, int ini, int lon)
 {
@@ -47,7 +47,6 @@ void agregar(char *nombre, int ini, int lon)
     nuevo_nodo->destructor_adentro = 0;
     nuevo_nodo->escritores_esperando = 0;
     nuevo_nodo->lectores_esperando = 0;
-    nuevo_nodo->compresor_esperando = 0;
     nuevo_nodo->destructor_esperando = 0;
 
     /* Busca la posicion que le corresponde para mantener la lista ordenada */
@@ -108,6 +107,6 @@ void recorrer(void)
     nodo *cur;
 
     for (cur = primero; cur != NULL; cur = cur->siguiente) {
-        printf("Nombre %s, Inicio %d\n", cur->ID, cur->inicio);
+        pthread_cond_signal(cur->espera);
     }
 }
