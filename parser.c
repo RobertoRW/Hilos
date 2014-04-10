@@ -143,8 +143,8 @@ int parsear(char *comando)
     } else {
         /* Comando invalido */
         enviar_error("Comando invaldio\n");
-        return 1;
     }
+    return 1;
 }
 
 /* get_line: recibe una linea y la pone en s,
