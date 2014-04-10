@@ -1,5 +1,7 @@
 #include <stdio.h>
 #include <string.h>
+#include <stdlib.h>
+#include "control.h"
 #define MAXLINE 1000
 #define WHITESPACE " \t\n"
 #define ERROR_ID "El id del hilo solo puede tener 2 caracteres."
@@ -9,8 +11,6 @@ int parsear(char *comando);
 
 
 /* Prototipos de Placeholders */
-void enviar_mensaje(char *msg);
-void enviar_error(char *error);
 void nuevo_creador(char *id, char *nombre, int inicio, int longitud,
                     int espera, char *tira);
 void nuevo_escritor(char *id, char *nombre, int espera, char *tira);
@@ -164,28 +164,40 @@ void get_line(char s[], int lim)
 }
 
 
-/* Placeholders */
-void enviar_mensaje(char *msg)
-{
-    printf("%s", msg);
-    return;
-}
+void nuevo_creador(char *id, char *nom, int ini, int lon, int esp,
+                      char *tira) {
+    /*extern*/ int tamano_arreglo /*;*/ = 100;
+    if ((ini + lon) > tamano_arreglo) {
+        enviar_error("Tamaño insuficiente en el arreglo\n");
+        return;
+    }
+    if (obtener(nom) != NULL) {
+        enviar_error("Ya existe un creador con ese nombre");
+        return;
+    }
+        
+    creador *p, cre;
+    p = malloc(sizeof(creador));
+    cre = *p;
 
-void enviar_error(char *msg)
-{
-    printf("%s", msg);
-    return ;
-}
+    tira[lon-1] = '\0';
 
-void nuevo_creador(char *id, char *nom, int ini, int lon, int esp, char *tira) {
+    cre.id = id;
+    cre.nombre = nom;
+    cre.inicio = ini;
+    cre.longitud = lon;
+    cre.espera = esp;
+    cre.tira = tira;
+    agregar(nom, ini, lon);
     printf("Nuevo creador, id: %s, nombre: %s, inicio: %d, longitud: %d, "
-    "espera: %d, tira: %s\n", id, nom, ini, lon, esp, tira);
+           "espera: %d, tira: %s\n",
+           cre.id, cre.nombre, cre.inicio, cre.longitud, cre.espera, cre.tira);
     return;
 }
 
 void nuevo_escritor(char *id, char *nom, int esp, char *tira) {
-    printf("Nuevo escritor, id: %s, nombre: %s, espera: %d, tira: %s\n",
-    id, nom, esp, tira);
+        printf("Nuevo escritor, id: %s, nombre: %s, espera: %d, tira: %s\n",
+        id, nom, esp, tira);
     return;
 }
 
