@@ -100,8 +100,6 @@ void eliminar(char *nombre)
     return;
 }
 
-/* esta funcion no sirve de nada para la tarea, la uso para pruebas
-   recorre la liste e impreme el nombre con el inicio de cada elemento */
 void recorrer(void)
 {
     nodo *cur;
