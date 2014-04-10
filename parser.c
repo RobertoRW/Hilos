@@ -196,7 +196,8 @@ void nuevo_creador(char *id, char *nom, int ini, int lon, int esp,
 }
 
 void nuevo_escritor(char *id, char *nom, int esp, char *tira) {
-    if (obtener(nom) == NULL) {
+    nodo *sector;
+    if ((sector = obtener(nom)) == NULL) {
         enviar_error("No existe un sector con ese nombre");
         return;
     }
@@ -205,7 +206,7 @@ void nuevo_escritor(char *id, char *nom, int esp, char *tira) {
     p = malloc(sizeof(escritor));
     es = *p;
 
-    tira[lon-1] = '\0';
+    tira[sector->longitud-1] = '\0';
 
     es.id = id;
     es.nombre = nom;
@@ -213,16 +214,37 @@ void nuevo_escritor(char *id, char *nom, int esp, char *tira) {
     es.tira = tira;
 
     printf("Nuevo escritor, id: %s, nombre: %s, espera: %d, tira: %s\n",
-    es.id, es.nombre, es.espera, es.tira);
+            es.id, es.nombre, es.espera, es.tira);
     return;
 }
 
 void nuevo_lector(char *id, char *nom, int esp) {
-    printf("Nuevo lector, id: %s, nombre: %s, espera: %d\n", id, nom, esp);
+    nodo *sector;
+    if ((sector = obtener(nom)) == NULL) {
+        enviar_error("No existe un sector con ese nombre");
+        return;
+    }
+
+    lector *p, le;
+    p = malloc(sizeof(lector));
+    le = *p;
+
+    le.id = id;
+    le.nombre = nom;
+    le.espera = esp;
+
+    printf("Nuevo lector, id: %s, nombre: %s, espera: %d\n",
+           le.id, le.nombre, le.espera);
     return;
 }
 
 void nuevo_compresor(int variante) {
+    compresor *p, ce;
+    p = malloc(sizeof(compresor));
+    ce = *p;
+
+    ce.tipo = variante;
+
     char *tipo = (variante) ? "primera" : "segunda";
     printf("Nuevo compresor de la %s variante\n", tipo);
     return;
@@ -235,7 +257,22 @@ void adelantar(int adelantar) {
 }
 
 void nuevo_destructor(char *id, char *nom, int esp) {
-    printf("Nuevo destructor, id: %s, nombre: %s, espera: %d\n", id, nom, esp);
+    nodo *sector;
+    if ((sector = obtener(nom)) == NULL) {
+        enviar_error("No existe un sector con ese nombre");
+        return;
+    }
+
+    destructor *p, de;
+    p = malloc(sizeof(destructor));
+    de = *p;
+
+    de.id = id;
+    de.nombre = nom;
+    de.espera = esp;
+
+    printf("Nuevo destructor, id: %s, nombre: %s, espera: %d\n",
+           de.id, de.nombre, de.espera);
     return;
 }
 

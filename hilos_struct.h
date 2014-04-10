@@ -10,7 +10,7 @@ struct creador_struct{
 typedef struct creador_struct creador;
 
 struct escritor_struct{
-    int id;
+    char *id;
     char *nombre;
     int espera;
     char* tira;
