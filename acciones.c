@@ -2,19 +2,10 @@
 #include <stdio.h>
 #include <string.h>
 #include "control.h"
-#include "hilos_struct.h"
 
 /* Temporal, el arreglo y su longitud */
 int maximo = 100;
 char arreglo[100];
-void enviar_mensaje(char*);
-void enviar_error(char*);
-
-void crear(creador *creador);
-void escribir(escritor *es);
-void leer(lector *le);
-void destruir(destructor *de);
-void comprimir(void);
 
 void get_line(char *linea, int maximo);
 
@@ -24,12 +15,12 @@ int main(void)
     get_line(tira, 100);
 }
 
-void crear(creador *cr)
+void crear(creador cr)
 {
-    char *nom = cr->nombre;
-    int ini = cr->inicio;
-    int lon = cr->longitud;
-    char *tira = cr->tira;
+    char *nom = cr.nombre;
+    int ini = cr.inicio;
+    int lon = cr.longitud;
+    char *tira = cr.tira;
    
     tira[lon-1] = '\0';   /* trunca la tira */
 
@@ -39,10 +30,10 @@ void crear(creador *cr)
 }
 
 
-void escribir(escritor *es)
+void escribir(escritor es)
 {
-    char *tira = es->tira;
-    char *nom = es->nombre;
+    char *tira = es.tira;
+    char *nom = es.nombre;
     
     nodo *segmento = obtener(nom);
     int ini = segmento->inicio;
@@ -52,9 +43,9 @@ void escribir(escritor *es)
     strcpy(arreglo+ini, tira);
 }
 
-void leer(lector *le)
+void leer(lector le)
 {
-    char *nom = le->nombre;
+    char *nom = le.nombre;
     nodo *segmento = obtener(nom);
 
     int i; 
@@ -68,9 +59,9 @@ void leer(lector *le)
     enviar_mensaje(mensaje);
 }
 
-void destruir(destructor *de)
+void destruir(destructor de)
 {
-    char *nom = de->nombre;
+    char *nom = de.nombre;
     
     eliminar(nom);
 }
