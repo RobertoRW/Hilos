@@ -8,6 +8,7 @@
 int maximo = 100;
 char arreglo[100];
 void enviar_mensaje(char*);
+void enviar_error(char*);
 
 void crear(creador *creador);
 void escribir(escritor *es);
@@ -82,9 +83,9 @@ void comprimir(void)
     for (p = primero; p != NULL; p = p->siguiente)
         if (p->inicio > prev) {
             int n = p->inicio;
-            p->inicio = prev;
             while(n < (p->inicio + p->longitud))
                 arreglo[prev++] = arreglo[n++];
+            p->inicio = prev - p->longitud;
         } else
             prev += p->longitud;
 }
@@ -110,6 +111,10 @@ void get_line(char s[], int lim)
 void enviar_mensaje(char *str) {
     printf("%s\n", str);
 }
+void enviar_error(char *str) {
+    printf("%s\n", str);
+}
+
 
 /* basura */
 /*
